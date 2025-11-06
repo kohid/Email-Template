@@ -107,9 +107,11 @@
                 self.handleDrop(e);
             });
 
-            // Widget selection
+            // Widget selection (delegated for dynamic widgets)
             $(document).on('click', '.canvas-widget', function(e) {
                 e.stopPropagation();
+                // avoid clicks coming from controls inside the widget
+                if ($(e.target).closest('.widget-controls').length) return;
                 self.selectWidget($(this));
             });
 
@@ -424,6 +426,10 @@
                     } else if ($draggedItem.hasClass('canvas-widget')) {
                         // Moving existing widget into container
                         $containerContent.append($draggedItem);
+                        // Make sure properties panel is updated for the moved widget
+                        if (typeof self.selectWidget === 'function') {
+                            self.selectWidget($draggedItem);
+                        }
                     }
                 }
             });
@@ -550,11 +556,21 @@
             $('[data-device="' + device + '"]').addClass('active');
             
             var $canvas = $('#email-canvas');
-            
+
+            // Reset styles first
+            $canvas.removeClass('mobile-mode tablet-mode').css('width', '');
+
             if (device === 'mobile') {
                 $canvas.addClass('mobile-mode');
+                // Set a mobile preview width (example: 375px)
+                $canvas.css('width', '375px');
+            } else if (device === 'tablet') {
+                $canvas.addClass('tablet-mode');
+                // Set a tablet preview width (example: 768px)
+                $canvas.css('width', '768px');
             } else {
-                $canvas.removeClass('mobile-mode');
+                // desktop
+                $canvas.removeClass('mobile-mode tablet-mode').css('width', '');
             }
         },
 
@@ -598,7 +614,7 @@
             }
             
             // Canvas settings
-            if (settings.canvas_width) $('#canvas-width').val(settings.canvas_width);
+            if (settings.canvas_width) $('#canvas-width').val(settings.canvas-width);
             if (settings.canvas_background) {
                 $('#canvas-background').val(settings.canvas_background);
                 $('#canvas-background-hex').val(settings.canvas_background);
@@ -610,6 +626,7 @@
             
             // Typography settings
             if (settings.global_typography) {
+
                 var typo = settings.global_typography;
                 
                 // Headings
