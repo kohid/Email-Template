@@ -202,24 +202,19 @@ class TDT_Email_Template_Builder
     }
 
     /**
-     * Enqueue admin assets
-     */
+         * Enqueue admin assets
+         */
+        // DEBUG: temporary enqueue override to help find missing asset problems
     public function enqueue_admin_assets($hook)
     {
-        // Only load on plugin pages
-        if (!isset($_GET['page']) || strpos($_GET['page'], 'tdt-email-template') === false) {
-            return;
-        }
-
-        // CSS
+        // TEMPORARY: always enqueue (remove or revert after debugging)
         wp_enqueue_style(
             'tdt-email-template-admin',
             TDT_EMAIL_TEMPLATE_PLUGIN_URL . 'assets/css/admin.css',
             array(),
             TDT_EMAIL_TEMPLATE_VERSION
         );
-
-        // JavaScript
+    
         wp_enqueue_script(
             'tdt-email-template-admin',
             TDT_EMAIL_TEMPLATE_PLUGIN_URL . 'assets/js/admin.js',
@@ -227,8 +222,7 @@ class TDT_Email_Template_Builder
             TDT_EMAIL_TEMPLATE_VERSION,
             true
         );
-
-        // Localize script
+    
         wp_localize_script('tdt-email-template-admin', 'tdtEmailTemplate', array(
             'ajax_url' => admin_url('admin-ajax.php'),
             'nonce' => wp_create_nonce('tdt_email_template_nonce'),
