@@ -360,8 +360,13 @@ class TDT_Email_Template_AJAX_Handler
 
         switch ($widget_type) {
             case 'container':
-                $html = '<div class="tdt-widget-container" style="padding: 20px; margin: 10px 0; border: 1px dashed #ccc; border-radius: 4px;">
-                    <div style="text-align: center; color: #999;">Container - Drag widgets here</div>
+                // Provide an explicit inner content area (.tdt-widget-container-content) that the admin JS expects.
+                // Outer element is a canvas-widget compatible container so it can be selected/moved.
+                $html = '<div class="tdt-widget-container canvas-widget" data-widget-type="container" style="padding:20px; margin:10px 0; border:1px dashed #ccc; border-radius:4px;">
+                    <div class="tdt-widget-container-header" style="text-align:center; color:#999;">Container</div>
+                    <div class="tdt-widget-container-content">
+                        <div class="tdt-widget-container-placeholder" style="padding:20px; text-align:center; color:#bbb;">Drag widgets here</div>
+                    </div>
                 </div>';
                 break;
 
@@ -531,22 +536,22 @@ class TDT_Email_Template_AJAX_Handler
     private static function generate_preview_html($content, $settings)
     {
         $html = '<!DOCTYPE html>
-<html >
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Email Template Preview</title>
-    <style>
-        body { margin: 0; padding: 20px; background: ' . esc_attr($settings['body_background'] ?? '#f1f4f9') . '; font-family: Arial, sans-serif; }
-        .email-container { max-width: ' . esc_attr($settings['canvas_width'] ?? '800px') . '; margin: 0 auto; background: ' . esc_attr($settings['canvas_background'] ?? '#ffffff') . '; padding: ' . esc_attr($settings['canvas_padding'] ?? '20px') . '; border-radius: ' . esc_attr($settings['canvas_border_radius'] ?? '3px') . '; }
-    </style>
-</head>
-<body>
-    <div class="email-container">
-        ' . $content . '
-    </div>
-</body>
-</html>';
+ <html >
+ <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Email Template Preview</title>
+     <style>
+         body { margin: 0; padding: 20px; background: ' . esc_attr($settings['body_background'] ?? '#f1f4f9') . '; font-family: Arial, sans-serif; }
+         .email-container { max-width: ' . esc_attr($settings['canvas_width'] ?? '800px') . '; margin: 0 auto; background: ' . esc_attr($settings['canvas_background'] ?? '#ffffff') . '; padding: ' . esc_attr($settings['canvas_padding'] ?? '20px') . '; border-radius: ' . esc_attr($settings['canvas_border_radius'] ?? '3px') . '; }
+     </style>
+ </head>
+ <body>
+     <div class="email-container">
+         ' . $content . '
+     </div>
+ </body>
+ </html>';
 
         return $html;
     }
