@@ -1,5 +1,16 @@
 <script src="https://kit.fontawesome.com/cdfe678bfc.js" crossorigin="anonymous"></script>
-
+<script>
+  // DEBUG: paste this just under the fontawesome include in email-builder.php
+  (function(){
+    console.log('TDT builder debug: jQuery:', typeof jQuery !== 'undefined' ? 'present' : 'MISSING');
+    console.log('TDT builder debug: window.tdtEmailBuilder:', typeof window.tdtEmailBuilder);
+    console.log('TDT builder debug: window.tdtEmailTemplate (localized):', typeof window.tdtEmailTemplate !== 'undefined' ? window.tdtEmailTemplate : 'MISSING');
+    // detect if admin.js is loaded
+    var scriptTags = Array.prototype.slice.call(document.getElementsByTagName('script'));
+    var foundAdminJs = scriptTags.some(function(s){ return s.src && s.src.indexOf('assets/js/admin.js') !== -1; });
+    console.log('TDT builder debug: admin.js loaded?', foundAdminJs);
+  })();
+</script>
 <div class="wrap tdt-email-template-builder" id="tdt-email-template-builder">
     <div class="tdt-email-template-header">
         <div class="tdt-email-template-header-left">
