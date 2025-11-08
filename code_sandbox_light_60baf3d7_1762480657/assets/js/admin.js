@@ -230,13 +230,62 @@
             $('#email-canvas').sortable({
                 placeholder: 'drop-zone',
                 tolerance: 'pointer',
+                connectWith: '.tdt-widget-container',
                 start: function(e, ui) {
                     ui.placeholder.height(ui.item.height());
                 },
                 update: function() {
                     self.updateWidgetOrder();
+                },
+                receive: function(e, ui) {
+                    // Remove placeholder when widgets are added
+                    $('#email-canvas .canvas-placeholder').remove();
                 }
             });
+            
+            // Initialize container widgets as sortable
+            this.initializeContainers();
+        },
+        
+        /**
+         * Initialize container widgets
+         */
+        initializeContainers: function() {
+            var self = this;
+            
+            $('.tdt-widget-container').each(function() {
+                if (!$(this).hasClass('ui-sortable')) {
+                    $(this).sortable({
+                        placeholder: 'drop-zone',
+                        tolerance: 'pointer',
+                        connectWith: '#email-canvas, .tdt-widget-container',
+                        start: function(e, ui) {
+                            ui.placeholder.height(ui.item.height());
+                        },
+                        update: function() {
+                            self.updateWidgetOrder();
+                            self.updateContainerState($(this));
+                        },
+                        receive: function(e, ui) {
+                            self.updateContainerState($(this));
+                        },
+                        remove: function(e, ui) {
+                            self.updateContainerState($(this));
+                        }
+                    });
+                }
+            });
+        },
+        
+        /**
+         * Update container state (empty/not empty)
+         */
+        updateContainerState: function($container) {
+            if ($container.find('.canvas-widget').length === 0) {
+                $container.addClass('empty');
+            } else {
+                $container.removeClass('empty');
+            }
         },
 
         /**
@@ -475,11 +524,16 @@
             
             var $canvas = $('#email-canvas');
             
+            // Remove all device mode classes
+            $canvas.removeClass('mobile-mode tablet-mode');
+            
+            // Add appropriate class based on device
             if (device === 'mobile') {
                 $canvas.addClass('mobile-mode');
-            } else {
-                $canvas.removeClass('mobile-mode');
+            } else if (device === 'tablet') {
+                $canvas.addClass('tablet-mode');
             }
+            // Desktop is the default (no class needed)
         },
 
         /**
