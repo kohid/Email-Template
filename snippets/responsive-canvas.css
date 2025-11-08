@@ -1,0 +1,18 @@
+/* snippets/responsive-canvas.css */
+/* Canvas + editor viewport styles for device modes */
+.editor-viewport { display:flex; justify-content:center; align-items:flex-start; width:100%; padding:20px; background:#f3f4f6; min-height:60vh; box-sizing:border-box; }
+.canvas { background:#ffffff; border:1px solid #e5e7eb; box-shadow:0 1px 3px rgba(0,0,0,0.06); transition:width 160ms ease, height 160ms ease; overflow:auto; min-height:300px; box-sizing:border-box; }
+
+/* Device widths - match your editor breakpoints or adjust */
+.device-desktop .canvas { width:1200px; }
+.device-tablet  .canvas { width:768px; }
+.device-mobile  .canvas { width:360px; }
+/* drop target visual */
+.tdt-drop-target { outline: 2px dashed #3b82f6; }
+/* palette and widgets */
+.palette { width:220px; padding:12px; background:#fff; border:1px solid #e5e7eb; }
+.palette .widget { padding:8px 10px; margin:6px 0; background:#f9fafb; border-radius:6px; cursor:grab; user-select:none; }
+.palette .widget:active { cursor:grabbing; }
+/* container structure */
+.tdt-widget-container { min-height:120px; padding:12px; border:1px dashed #d1d5db; background:linear-gradient(180deg, rgba(15,23,42,0.02), rgba(255,255,255,0.02)); }
+.tdt-container-inner { display:flex; flex-direction:column; gap:8px; }

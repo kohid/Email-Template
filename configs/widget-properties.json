@@ -1,0 +1,85 @@
+{
+  "widgetSettingsSchemaVersion": "1.0",
+  "common": {
+    "content_visibility": {
+      "type": "enum",
+      "options": ["all", "desktop-only", "mobile-only"],
+      "default": "all"
+    },
+    "css": {
+      "classes": { "type": "string", "default": "" },
+      "id": { "type": "string", "default": "" }
+    },
+    "advanced": {
+      "margin": { "type": "box", "units": ["px", "em", "rem", "vw"], "default": { "top":0, "right":0, "bottom":0, "left":0 } },
+      "padding": { "type": "box", "units": ["px","em","rem","vw"], "default": { "top":0, "right":0, "bottom":0, "left":0 } },
+      "width": { "type": "dimension", "units": ["px", "%", "em", "rem", "vw"], "default": "auto" },
+      "height": { "type": "dimension", "units": ["px", "vh", "em", "rem"], "default": "auto" },
+      "opacity": { "type": "number", "min":0, "max":1,"step":0.01, "default":1 },
+      "align_self": { "type":"enum", "options":["start","center","end","stretch"], "default":"stretch" },
+      "order": { "type":"string", "default":"0" },
+      "size": { "type":"enum", "options":["none","grow","shrink","custom"], "default":"none" },
+      "z_index": { "type":"integer", "default":0 }
+    },
+    "background": {
+      "color": { "type":"color", "default": "" },
+      "image": { "type":"media", "default": null },
+      "position": { "type":"string", "default":"center center" },
+      "attachment": { "type":"enum", "options":["scroll","fixed"], "default":"scroll" },
+      "repeat": { "type":"enum", "options":["no-repeat","repeat","repeat-x","repeat-y"], "default":"no-repeat" },
+      "size": { "type":"enum", "options":["auto","cover","contain"], "default":"cover" },
+      "overlay": { "type":"color", "default": "" }
+    },
+    "border": {
+      "type": { "type":"enum", "options":["none","solid","dashed","dotted","double"], "default":"none" },
+      "width": { "type":"box-side", "units": ["px","em"], "default": 0 },
+      "radius": { "type":"box-side", "units": ["px","%"], "default": 0 },
+      "box_shadow": { "type":"shadow", "default": null }
+    }
+  },
+  "widgets": {
+    "text": {
+      "content": { "type":"string", "default": "" },
+      "html_tag": { "type":"enum", "options":["h1","h2","h3","h4","h5","h6","p","div"], "default":"p" },
+      "style": {
+        "alignment": { "type":"enum", "options":["left","center","right","justified"], "default":"left" },
+        "typography": {
+          "color": { "type":"color", "default": "" },
+          "font_family": { "type":"string", "default": "" },
+          "font_size": { "type":"dimension", "units":["px","em","rem","vw"], "default":"16px" },
+          "font_weight": { "type":"string", "default": "400" },
+          "transform": { "type":"enum", "options":["none","uppercase","lowercase","capitalize"], "default":"none" },
+          "stroke": { "type":"string", "default": "" },
+          "shadow": { "type":"text-shadow", "default": "" },
+          "style": { "type":"enum", "options":["normal","italic","oblique"], "default":"normal" },
+          "decoration": { "type":"enum", "options":["none","underline","line-through","overline"], "default":"none" },
+          "line_height": { "type":"number", "default":1.2 },
+          "letter_spacing": { "type":"dimension", "units":["px","em","rem","vw"], "default":"0px" },
+          "word_spacing": { "type":"dimension", "units":["px","em","rem","vw"], "default":"0px" },
+          "hover": { "type":"object", "default": {} }
+        }
+      }
+    },
+    "image": {
+      "media_id": { "type":"media", "default": null },
+      "resolution": { "type":"enum", "options":["original","large","medium","thumbnail"], "default":"original" },
+      "alt": { "type":"string", "default": "" },
+      "link": { "type":"url", "default": "" }
+    },
+    "button": {
+      "text": {  "type":"string", "default":"Button" },
+      "link": { "type":"url", "default":"" },
+      "icon": { "type":"string", "default": "" },
+      "icon_position": { "type":"enum", "options":["left","right"], "default":"left" },
+      "icon_spacing": { "type":"dimension", "units":["px","em","rem"], "default":"8px" },
+      "button_id": { "type":"string", "default": "" }
+    },
+    "video": {
+      "source": { "type":"enum", "options":["youtube","vimeo","self"], "default":"youtube" },
+      "link": { "type":"url", "default": "" },
+      "start_time": { "type":"integer","default":0 },
+      "end_time": { "type":"integer","default":0 },
+      "options": { "type":"object", "default": {} }
+    }
+  }
+}
